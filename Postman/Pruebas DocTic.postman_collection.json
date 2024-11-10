@@ -1,0 +1,557 @@
+{
+	"info": {
+		"_postman_id": "14fb6d2a-af17-4527-85e6-fcccbce279b8",
+		"name": "Pruebas DocTic",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38283995",
+		"_collection_link": "https://doctic.postman.co/workspace/DocTic-Workspace~af0bd8d4-5a80-4ff3-82ba-a64bd25ea23b/collection/38283995-14fb6d2a-af17-4527-85e6-fcccbce279b8?action=share&source=collection_link&creator=38283995"
+	},
+	"item": [
+		{
+			"name": "Usuarios",
+			"item": [
+				{
+					"name": "Crear usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Andres Escobar 1\",\r\n    \"email\": \"AndresE@example.edu.co\",\r\n    \"nickname\": \"Andres_E\",\r\n    \"ciudad\": \"Cali\",\r\n    \"departamento\": \"Valle del cauca\",\r\n    \"contrasena\": [\r\n        {\r\n        \"clave\": \"122344556\",\r\n        \"estado\": \"Activa\",\r\n        \"fechaCreacion\": \"2024-09-25T10:00:00Z\",\r\n        \"preguntaSecreta\": \"Nombre de tu primera mascota\",\r\n        \"respuestaSecreta\": \"Simba\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/doctic/apiweb/usuarios/guardar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"doctic",
+								"apiweb",
+								"usuarios",
+								"guardar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar usuario",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Juan Hoyos\",\r\n    \"email\": \"juanandres8000@hotmail.com\",\r\n    \"nickname\": \"juanito\",\r\n    \"ciudad\": \"Cali\",\r\n    \"departamento\": \"Valle del Cauca\",\r\n    \"contrasena\": {\r\n        \"clave\": \"122344556\",\r\n        \"estado\": \"Activa\",\r\n        \"fechaCreacion\": \"2024-09-25T10:00:00Z\",\r\n        \"preguntaSecreta\": \"Nombre de tu primera mascota\",\r\n        \"respuestaSecreta\": \"Simba\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/doctic/apiweb/usuarios/actualizar/672d40b3f37621614636d465",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"doctic",
+								"apiweb",
+								"usuarios",
+								"actualizar",
+								"672d40b3f37621614636d465"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar usuario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/doctic/apiweb/usuarios/672ec3a07ac3f962bf496d68",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"doctic",
+								"apiweb",
+								"usuarios",
+								"672ec3a07ac3f962bf496d68"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar usuario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/doctic/apiweb/usuarios/eliminar/672ec3a07ac3f962bf496d68",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"doctic",
+								"apiweb",
+								"usuarios",
+								"eliminar",
+								"672ec3a07ac3f962bf496d68"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Documentos",
+			"item": [
+				{
+					"name": "Crear documento",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"descripcion\": \"bases de datos NoSQL\",\r\n  \"url\": \"https://example.com/doc-nosql\",\r\n  \"visibilidad\": \"Publico\",\r\n  \"fechaCreacion\": \"2024-08-01T10:00:00.000Z\",\r\n  \"idCategoria\": \"672e5f422c97bf02434a9117\",\r\n  \"escritura\": [\r\n    {\r\n      \"fecha\": \"2024-08-01T10:00:00.000Z\",\r\n      \"rol\": \"Publica\",\r\n      \"idUsuario\": \"672e77ceaf10d2226e1b3dcd\"\r\n    }\r\n  ],\r\n  \"acciones\": {\r\n    \"visualizaciones\": [\r\n      {\r\n        \"fecha\": \"2024-08-01T11:00:00.000Z\",\r\n        \"idUsuario\": \"672e77ceaf10d2226e1b3dce\"\r\n      }\r\n    ],\r\n    \"descargas\": [\r\n      {\r\n        \"fecha\": \"2024-08-01T12:00:00.000Z\",\r\n        \"idUsuario\": \"672e77ceaf10d2226e1b3dcf\"\r\n      }\r\n    ],\r\n    \"valoraciones\": [\r\n      {\r\n        \"idUsuario\": \"672e77ceaf10d2226e1b3dd0\",\r\n        \"fecha\": \"2024-08-01T13:00:00.000Z\",\r\n        \"puntuacion\": 5\r\n      }\r\n    ]\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/doctic/apiweb/documentos/guardar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"doctic",
+								"apiweb",
+								"documentos",
+								"guardar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar un Coautor",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"escritura\": [\r\n    {\r\n      \"fecha\": \"2024-08-01T10:00:00.000Z\",\r\n      \"rol\": \"Coautor\",\r\n      \"idUsuario\": \"672e77ceaf10d2226e1b3dd0\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/doctic/apiweb/documentos/actualizar/6730d07008493f7866344608",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"doctic",
+								"apiweb",
+								"documentos",
+								"actualizar",
+								"6730d07008493f7866344608"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar un documento",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"descripcion\": \"Documento sobre bases de datos NoSQL\",\r\n  \"url\": \"https://example.com/doc-nosql\",\r\n  \"visibilidad\": \"Publico\",\r\n  \"fechaCreacion\": \"2024-08-01T10:00:00.000Z\",\r\n  \"idCategoria\": \"672e5f422c97bf02434a9116\",\r\n  \"escritura\": [\r\n    {\r\n      \"fecha\": \"2024-08-01T10:00:00.000Z\",\r\n      \"rol\": \"Publica\",\r\n      \"idUsuario\": \"672e77ceaf10d2226e1b3dcd\"\r\n    }\r\n  ],\r\n  \"acciones\": {\r\n    \"visualizaciones\": [\r\n      {\r\n        \"fecha\": \"2024-08-01T11:00:00.000Z\",\r\n        \"idUsuario\": \"672e77ceaf10d2226e1b3dce\"\r\n      }\r\n    ],\r\n    \"descargas\": [\r\n      {\r\n        \"fecha\": \"2024-08-01T12:00:00.000Z\",\r\n        \"idUsuario\": \"672e77ceaf10d2226e1b3dcf\"\r\n      }\r\n    ],\r\n    \"valoraciones\": [\r\n      {\r\n        \"idUsuario\": \"672e77ceaf10d2226e1b3dd0\",\r\n        \"fecha\": \"2024-08-01T13:00:00.000Z\",\r\n        \"puntuacion\": 5\r\n      }\r\n    ]\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/doctic/apiweb/documentos/actualizar/6730d07008493f7866344608",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"doctic",
+								"apiweb",
+								"documentos",
+								"actualizar",
+								"6730d07008493f7866344608"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar documento",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/doctic/apiweb/documentos/67304c464587fa1880bff46f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"doctic",
+								"apiweb",
+								"documentos",
+								"67304c464587fa1880bff46f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar documento",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/doctic/apiweb/documentos/eliminar/6730d07008493f7866344608",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"doctic",
+								"apiweb",
+								"documentos",
+								"eliminar",
+								"6730d07008493f7866344608"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categorias",
+			"item": [
+				{
+					"name": "Crear Categoria",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"MongoDB 01\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/doctic/apiweb/categorias/guardar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"doctic",
+								"apiweb",
+								"categorias",
+								"guardar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear subCategoria",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"NoSQL\",\r\n    \"subIdCategoria\":\"672edc18b317e92aeb30d27f\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/doctic/apiweb/categorias/guardar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"doctic",
+								"apiweb",
+								"categorias",
+								"guardar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar categoria/Subcategoria",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Visualización de datos\",\r\n    \"subIdCategoria\": \"672e5f422c97bf02434a9119\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/doctic/apiweb/categorias/actualizar/672e5f422c97bf02434a911a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"doctic",
+								"apiweb",
+								"categorias",
+								"actualizar",
+								"672e5f422c97bf02434a911a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar categoria/Subcategoria",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/doctic/apiweb/categorias/672edeaa3b32686ed3b52d7e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"doctic",
+								"apiweb",
+								"categorias",
+								"672edeaa3b32686ed3b52d7e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar categoria/Subcategoria",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/doctic/apiweb/categorias/eliminar/672edeaa3b32686ed3b52d7e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"doctic",
+								"apiweb",
+								"categorias",
+								"eliminar",
+								"672edeaa3b32686ed3b52d7e"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comentarios",
+			"item": [
+				{
+					"name": "Crear Comentario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fecha\": \"2024-08-01T10:00:00.000Z\",\r\n    \"idUsuario\": \"672e77ceaf10d2226e1b3dcd\",\r\n    \"idDocumento\": \"672eda024b656876dd11b6da\",\r\n    \"contenido\": \"Muy bien explicado.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/doctic/apiweb/comentarios/guardar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"doctic",
+								"apiweb",
+								"comentarios",
+								"guardar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear respuesta",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n    \"fecha\": \"2024-08-01T10:00:00.000Z\",\r\n    \"idUsuario\": \"672e77ceaf10d2226e1b3dcd\",\r\n    \"idDocumento\": \"672eda024b656876dd11b6da\",\r\n    \"contenido\": \"Muy bien explicado.\",\r\n    \"respuestas\": [   \r\n        {\r\n            \"_id\": \"672ede1b3b32686ed3b52d7e\",\r\n            \"idUsuario\": \"672ec25f920fa94b9b1136bd\",\r\n            \"fecha\": \"2024-08-01T11:00:00.000Z\",\r\n            \"contenido\": \"Opino lo contrario....\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/doctic/apiweb/comentarios/guardar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"doctic",
+								"apiweb",
+								"comentarios",
+								"guardar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Comentario/Respuesta",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n    \"fecha\": \"2024-08-01T10:00:00.000Z\",\r\n    \"idUsuario\": \"672e77ceaf10d2226e1b3dcd\",\r\n    \"idDocumento\": \"672eda024b656876dd11b6da\",\r\n    \"contenido\": \"Muy bien explicado.\",\r\n    \"respuestas\": [   \r\n        {\r\n            \"_id\": \"672ede1b3b32686ed3b52d7d\",\r\n            \"idUsuario\": \"672ec25f920fa94b9b1136bd\",\r\n            \"fecha\": \"2024-08-01T11:00:00.000Z\",\r\n            \"contenido\": \"Lo volvi a ver y esta muy completo.\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/doctic/apiweb/comentarios/actualizar/672ee0b58e32fa36bb021871",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"doctic",
+								"apiweb",
+								"comentarios",
+								"actualizar",
+								"672ee0b58e32fa36bb021871"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Comentario/Respuesta",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/doctic/apiweb/comentarios/672ee0b58e32fa36bb021871",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"doctic",
+								"apiweb",
+								"comentarios",
+								"672ee0b58e32fa36bb021871"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Comentario/Respuesta",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/doctic/apiweb/comentarios/eliminar/672ee0b58e32fa36bb021871",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"doctic",
+								"apiweb",
+								"comentarios",
+								"eliminar",
+								"672ee0b58e32fa36bb021871"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

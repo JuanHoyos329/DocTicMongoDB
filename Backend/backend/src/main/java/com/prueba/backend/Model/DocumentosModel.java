@@ -30,6 +30,7 @@ public class DocumentosModel {
     private List<Escrituras> escritura;
     private ObjectId idCategoria;
     private Acciones acciones;
+    private Valoraciones valoraciones;
 
     @JsonProperty("_id")
     public String getIdAstring() {

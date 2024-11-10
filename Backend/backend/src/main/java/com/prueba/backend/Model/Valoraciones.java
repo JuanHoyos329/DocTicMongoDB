@@ -25,4 +25,11 @@ public class Valoraciones {
     public String getIdUsuarioString() {
         return idUsuario != null ? idUsuario.toHexString() : null;
     }
+
+    public void setPuntuacion(int puntuacion) {
+        if (puntuacion < 1 || puntuacion > 5) {
+            throw new IllegalArgumentException("La puntuación debe estar entre 1 y 5");
+        }
+        this.puntuacion = puntuacion;
+    }
 }

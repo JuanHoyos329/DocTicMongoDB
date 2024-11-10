@@ -34,21 +34,22 @@ public class DocumentosServicelmp implements IDocumentoService {
         boolean categoriaExiste = categoriasRepository.existsById(documento.getIdCategoria());
         boolean usuarioExiste = usuariosRepository.existsById(documento.getEscritura().get(0).getIdUsuario());
         boolean rolCorrecto = documento.getEscritura().stream().allMatch(e -> e.getRol() == Rol.Publica);
+        boolean valoracion = documento.getValoraciones().getPuntuacion() >= 1 && documento.getValoraciones().getPuntuacion() <= 5;
 
-        if (categoriaExiste && usuarioExiste && rolCorrecto) {
+        if (categoriaExiste && usuarioExiste && rolCorrecto && valoracion) {
             documentosRepository.save(documento);
             return "El documento " + documento.getDescripcion() + " se ha guardado correctamente.";
         } else {
             if (!categoriaExiste) {
-                return "Error La categoría no existe.";
+                return "La categoría no existe.";
             }
             if (!usuarioExiste) {
-                return "Error El usuario no existe.";
+                return "El usuario no existe.";
             }
             if (!rolCorrecto) {
-                return "Error El rol no es correcto.";
+                return "El rol no es correcto.";
             }
-            return "Error La información del documento no es correcta.";
+            return "La información del documento no es correcta.";
         }
     }
 
@@ -70,7 +71,7 @@ public class DocumentosServicelmp implements IDocumentoService {
         Optional<DocumentosModel> documentoActualizado = buscarDocumento(_id);
 
         if (!documentoActualizado.isPresent()) {
-            return "Error, El documento no existe.";
+            return "El documento no se ha encontrado o no existe en la BD.";
         }
 
         DocumentosModel doc = documentoActualizado.get();
@@ -90,12 +91,12 @@ public class DocumentosServicelmp implements IDocumentoService {
 
     private String validarDatos(DocumentosModel nuevoDocumento, DocumentosModel documentoExistente) {
         if (nuevoDocumento.getIdCategoria() != null && !categoriasRepository.existsById(nuevoDocumento.getIdCategoria())) {
-            return "Error, La categoría no existe.";
+            return "La categoría no existe.";
         }
 
         if (!nuevoDocumento.getEscritura().isEmpty() &&
             !usuariosRepository.existsById(nuevoDocumento.getEscritura().get(0).getIdUsuario())) {
-            return "Error, El usuario no existe.";
+            return "El usuario no existe.";
         }
 
         boolean tieneRolPublicaActual = documentoExistente.getEscritura().stream()
@@ -104,7 +105,7 @@ public class DocumentosServicelmp implements IDocumentoService {
                 .anyMatch(e -> e.getRol() == Rol.Publica);
 
         if (tieneRolPublicaActual && nuevoRolPublica && !verificarPublica(nuevoDocumento, documentoExistente)) {
-            return "Error, Solo puede existir un usuario con el rol Publica.";
+            return "Solo puede existir un usuario con el rol Publica.";
         }
         return null;
     }
