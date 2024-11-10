@@ -34,9 +34,8 @@ public class DocumentosServicelmp implements IDocumentoService {
         boolean categoriaExiste = categoriasRepository.existsById(documento.getIdCategoria());
         boolean usuarioExiste = usuariosRepository.existsById(documento.getEscritura().get(0).getIdUsuario());
         boolean rolCorrecto = documento.getEscritura().stream().allMatch(e -> e.getRol() == Rol.Publica);
-        boolean valoracion = documento.getValoraciones().getPuntuacion() >= 1 && documento.getValoraciones().getPuntuacion() <= 5;
-
-        if (categoriaExiste && usuarioExiste && rolCorrecto && valoracion) {
+        
+        if (categoriaExiste && usuarioExiste && rolCorrecto) {
             documentosRepository.save(documento);
             return "El documento " + documento.getDescripcion() + " se ha guardado correctamente.";
         } else {
@@ -47,7 +46,7 @@ public class DocumentosServicelmp implements IDocumentoService {
                 return "El usuario no existe.";
             }
             if (!rolCorrecto) {
-                return "El rol no es correcto.";
+                return "El rol no puede ser diferente a Publica.";
             }
             return "La información del documento no es correcta.";
         }
@@ -57,12 +56,36 @@ public class DocumentosServicelmp implements IDocumentoService {
     @Transactional
     public String eliminarDocumento(ObjectId _id, DocumentosModel documento) {
         Optional<DocumentosModel> documentoOptional = documentosRepository.findById(_id);
+
         if (documentoOptional.isPresent()) {
             documento = documentoOptional.get();
             documentosRepository.deleteById(_id);
             return "El documento " + documento.getDescripcion() + " fue eliminado con exito";
         } else {
             return "El documento no se ha encontrado o no existe en la BD.";
+        }
+    }
+
+    @Override
+    public String eliminarEscritores(ObjectId _id, ObjectId idUsuario, DocumentosModel documento) {
+        Optional<DocumentosModel> documentoOptional = documentosRepository.findById(_id);
+        
+        if (!documentoOptional.isPresent()) {
+            return "El documento no se ha encontrado o no existe en la BD.";
+        }
+        
+        documento = documentoOptional.get();
+        List<Escrituras> escrituras = documento.getEscritura();
+        
+        boolean rolCorrecto = escrituras.stream().anyMatch(e -> e.getRol() == Rol.Publica && e.getIdUsuario().equals(idUsuario));
+        
+        if (!rolCorrecto) {
+            escrituras.removeIf(e -> e.getIdUsuario().equals(idUsuario));
+            documento.setEscritura(escrituras);
+            documentosRepository.save(documento);
+            return "El escritor fue eliminado con éxito";
+        } else {
+            return "El autor con el rol público no puede ser eliminado del documento.";
         }
     }
 
@@ -140,5 +163,12 @@ public class DocumentosServicelmp implements IDocumentoService {
     public Optional<DocumentosModel> buscarDocumento(ObjectId _id) {
         return documentosRepository.findById(_id);
     }
+
+    @Override
+    public Optional<List<Escrituras>> buscarEscritores(ObjectId _id, ObjectId idUsuario) {
+        return documentosRepository.findById(_id)
+            .map(doc -> doc.getEscritura());
+    }
+
 
 }

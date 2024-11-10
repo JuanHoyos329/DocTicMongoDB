@@ -11,6 +11,7 @@ import com.prueba.backend.Service.IDocumentoService;
 
 import org.bson.types.ObjectId;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -39,17 +40,32 @@ public class DocumentosController {
         }
     }
 
+    @GetMapping("/{_id}/usuario/{idUsuario}")
+    public ResponseEntity<?> buscarEscritores(@PathVariable ObjectId _id, @PathVariable ObjectId idUsuario) {
+        try {
+            Optional<List<Escrituras>> escritores = documentoService.buscarEscritores(_id, idUsuario);
+
+            if (escritores.isPresent() && !escritores.get().isEmpty()) {
+                return ResponseEntity.ok(escritores.get());
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontraron escritores para este documento.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+
+
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<String> actualizarDocumento(
             @PathVariable("id") ObjectId id, 
             @RequestBody DocumentosModel documento) {
 
-        // Llamada al servicio para actualizar el documento
-        String resultado = documentoService.actualizarDocumento(id, documento);
-        // Verificar el resultado para decidir la respuesta HTTP adecuada
-        if (resultado.startsWith("Error")) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(resultado);
-        }
+            String resultado = documentoService.actualizarDocumento(id, documento);
+            if (resultado.startsWith("Error")) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(resultado);
+            }
         return ResponseEntity.ok(resultado);
     }
 
@@ -58,4 +74,12 @@ public class DocumentosController {
         return new ResponseEntity<>(documentoService.eliminarDocumento(_id, documento), HttpStatus.OK);
     }
 
+    @DeleteMapping("/eliminar/{_id}/escritor/{idUsuario}")
+    public ResponseEntity<String> eliminarEscritor(@PathVariable("_id") ObjectId _id, @PathVariable("idUsuario") ObjectId idUsuario, DocumentosModel documento) {
+        String resultado = documentoService.eliminarEscritores(_id, idUsuario, documento);
+        if (resultado.startsWith("Error")) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(resultado);
+        }
+        return ResponseEntity.ok(resultado);
+    }
 }
