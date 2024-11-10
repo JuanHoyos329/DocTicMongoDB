@@ -79,7 +79,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/doctic/apiweb/usuarios/672ec3a07ac3f962bf496d68",
+							"raw": "http://localhost:8080/doctic/apiweb/usuarios/672e77ceaf10d2226e1b3dd0",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -89,7 +89,7 @@
 								"doctic",
 								"apiweb",
 								"usuarios",
-								"672ec3a07ac3f962bf496d68"
+								"672e77ceaf10d2226e1b3dd0"
 							]
 						}
 					},
@@ -124,6 +124,92 @@
 			"name": "Documentos",
 			"item": [
 				{
+					"name": "Escrituras",
+					"item": [
+						{
+							"name": "Agregar/Actualizar un Coautor",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"escritura\": [\r\n    {\r\n      \"fecha\": \"2024-08-01T10:00:00.000Z\",\r\n      \"rol\": \"Coautor\",\r\n      \"idUsuario\": \"672e77ceaf10d2226e1b3dd0\"\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/doctic/apiweb/documentos/actualizar/67311eecd766f7554c1cfd54",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"doctic",
+										"apiweb",
+										"documentos",
+										"actualizar",
+										"67311eecd766f7554c1cfd54"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Eliminar escritor",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/doctic/apiweb/documentos/eliminar/67311eecd766f7554c1cfd54/escritor/672e77ceaf10d2226e1b3dd0",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"doctic",
+										"apiweb",
+										"documentos",
+										"eliminar",
+										"67311eecd766f7554c1cfd54",
+										"escritor",
+										"672e77ceaf10d2226e1b3dd0"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buscar escritores",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/doctic/apiweb/documentos/67311eecd766f7554c1cfd54/usuario/672e77ceaf10d2226e1b3dd0",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"doctic",
+										"apiweb",
+										"documentos",
+										"67311eecd766f7554c1cfd54",
+										"usuario",
+										"672e77ceaf10d2226e1b3dd0"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Crear documento",
 					"request": {
 						"method": "POST",
@@ -149,38 +235,6 @@
 								"apiweb",
 								"documentos",
 								"guardar"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Agregar un Coautor",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"escritura\": [\r\n    {\r\n      \"fecha\": \"2024-08-01T10:00:00.000Z\",\r\n      \"rol\": \"Coautor\",\r\n      \"idUsuario\": \"672e77ceaf10d2226e1b3dd0\"\r\n    }\r\n  ]\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/doctic/apiweb/documentos/actualizar/6730d07008493f7866344608",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"doctic",
-								"apiweb",
-								"documentos",
-								"actualizar",
-								"6730d07008493f7866344608"
 							]
 						}
 					},
@@ -224,7 +278,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/doctic/apiweb/documentos/67304c464587fa1880bff46f",
+							"raw": "http://localhost:8080/doctic/apiweb/documentos/67311eecd766f7554c1cfd54",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -234,7 +288,7 @@
 								"doctic",
 								"apiweb",
 								"documentos",
-								"67304c464587fa1880bff46f"
+								"67311eecd766f7554c1cfd54"
 							]
 						}
 					},
