@@ -17,7 +17,6 @@ import com.mongodb.client.result.UpdateResult;
 import com.prueba.backend.Model.ComentariosModel;
 import com.prueba.backend.Model.DocumentosModel;
 import com.prueba.backend.Model.Respuestas;
-import com.prueba.backend.Model.UsuariosModel;
 import com.prueba.backend.Repository.IComentariosRepository;
 import com.prueba.backend.Repository.IDocumentosRepository;
 import com.prueba.backend.Repository.IUsuariosRepository;
@@ -37,29 +36,37 @@ public class ComentarioServicelmp implements IComentarioService {
     @Autowired
     private MongoTemplate mongoTemplate;
 
+
+    public boolean haDescargadoDocumento(String idUsuario, String idDocumento) {
+        Query query = new Query(
+            Criteria.where("_id").is(new ObjectId(idDocumento))
+                    .and("acciones.descargas.idUsuario").is(idUsuario)
+        );
+        return mongoTemplate.exists(query, DocumentosModel.class);
+    }
     
     @Override
     public String guardarComentario(ComentariosModel comentario) {
-        
-        if (comentario.getIdDocumento() != null && comentario.getIdUsuario() != null) {
-            ObjectId idDocumento = comentario.getIdDocumento();
-            ObjectId idUsuario = comentario.getIdUsuario();
+        ObjectId idDocumento = comentario.getIdDocumento();
+        ObjectId idUsuario = comentario.getIdUsuario();
 
-            DocumentosModel documento = documentosRepository.findById(idDocumento).orElse(null);
-            UsuariosModel usuario = usuariosRepository.findById(idUsuario).orElse(null);
-            
-            if (documento != null && usuario != null) {
-                comentario.setIdDocumento(documento.get_id());
-                comentario.setIdUsuario(usuario.get_id());
-            } else {
-                return "No se ha encontrado un documento o usuario con ese ID.";
-            }
-        } else {
-            return "El ID del documento o del usuario no puede ser nulo.";
+        if (!usuariosRepository.existsById(idUsuario)) {
+            return "El usuario no existe.";
         }
 
+        if (!documentosRepository.existsById(idDocumento)) {
+            return "El documento no existe.";
+        }
+
+        boolean haDescargado = documentosRepository.existsByidUsuarioAndIdDocumento(idUsuario, idDocumento);
+        if (!haDescargado) {
+            return "El usuario no ha descargado el documento.";
+        }
+
+        comentario.setFecha(new Date());
         comentariosRepository.save(comentario);
-        return "Comentario guardado exitosamente.";
+        return "El comentario se ha guardado con éxito.";
+            
     }
 
 
@@ -146,24 +153,17 @@ public class ComentarioServicelmp implements IComentarioService {
 
     @Override
     public Optional<Respuestas> obtenerRespuesta(ObjectId comentarioId, ObjectId idUsuario) {
-        // Crear el filtro para buscar en el array 'respuestas' del comentario
         Query query = new Query(Criteria.where("_id").is(comentarioId)
                 .and("respuestas.idUsuario").is(idUsuario));
     
-        // Solo proyectar la respuesta que coincide con el idUsuario
         query.fields().include("respuestas.$");
     
         ComentariosModel comentario = mongoTemplate.findOne(query, ComentariosModel.class);
     
         if (comentario != null && comentario.getRespuestas() != null && !comentario.getRespuestas().isEmpty()) {
-            // Retornar la primera respuesta que cumple con el filtro
             return Optional.of(comentario.getRespuestas().get(0));
         } else {
             return Optional.empty();
         }
-    }     
-    
-    
+    }         
 } 
-    
-
