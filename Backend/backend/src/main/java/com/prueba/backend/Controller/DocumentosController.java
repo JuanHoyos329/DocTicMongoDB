@@ -55,7 +55,10 @@ public class DocumentosController {
         }
     }
 
-
+    @GetMapping("/listar/documentos")
+    public ResponseEntity<?> listarDocumentos() {
+        return new ResponseEntity<>(documentoService.listarDocumentos(), HttpStatus.OK);
+    }
 
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<String> actualizarDocumento(

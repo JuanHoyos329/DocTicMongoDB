@@ -1,5 +1,7 @@
 package com.prueba.backend.Service;
 
+import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -66,5 +68,10 @@ public class CategoriaServicelmp implements ICategoriaService {
     @Override
     public CategoriasModel buscarCategoria(ObjectId _id) {
         return categoriasRepository.findById(_id).orElseThrow(() -> new RuntimeException("La categoria no se ha encontrado o no existe en la BD."));
+    }
+
+    @Override
+    public List<CategoriasModel> listarCategorias() {
+        return categoriasRepository.findAll();
     }
 }

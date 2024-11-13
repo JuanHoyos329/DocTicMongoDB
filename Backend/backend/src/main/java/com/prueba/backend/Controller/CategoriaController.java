@@ -38,6 +38,11 @@ public class CategoriaController {
         }
     }
 
+    @GetMapping("/listar/categorias")
+    public ResponseEntity<?> listarCategorias(){
+        return new ResponseEntity<>(categoriaService.listarCategorias(), HttpStatus.OK);
+    }
+
     @PutMapping("/actualizar/{_id}")
     public ResponseEntity<String>actualizarCategoria(@PathVariable ObjectId _id, @RequestBody CategoriasModel categoria){
         try {

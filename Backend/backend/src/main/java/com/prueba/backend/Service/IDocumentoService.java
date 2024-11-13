@@ -16,4 +16,5 @@ public interface IDocumentoService {
     Optional<DocumentosModel> buscarDocumento(ObjectId _id);
     String eliminarEscritores(ObjectId _id, ObjectId idUsuario, DocumentosModel documento);
     Optional<List<Escrituras>> buscarEscritores(ObjectId _id, ObjectId idUsuario);
+    List<DocumentosModel> listarDocumentos();
 }

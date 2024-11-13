@@ -170,5 +170,9 @@ public class DocumentosServicelmp implements IDocumentoService {
             .map(doc -> doc.getEscritura());
     }
 
+    @Override
+    public List<DocumentosModel> listarDocumentos() {
+        return documentosRepository.findAll();
+    }
 
 }

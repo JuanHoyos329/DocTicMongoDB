@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.prueba.backend.Model.UsuariosModel;
 import com.prueba.backend.Repository.IUsuariosRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -58,6 +59,11 @@ public class UsuariosServicelmp implements IUsuariosService {
     @Override
     public UsuariosModel buscarUsuario(ObjectId _id) {
         return usuariosRepository.findById(_id).orElseThrow(() -> new RuntimeException("El usuario no se ha encontrado o no existe en la BD."));
+    }
+
+    @Override
+    public List<UsuariosModel> listarUsuarios() {
+        return usuariosRepository.findAll();
     }
 
 }

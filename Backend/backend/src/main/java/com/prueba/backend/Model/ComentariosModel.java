@@ -26,7 +26,7 @@ public class ComentariosModel {
     private String contenido;
     private ObjectId idUsuario;
     private ObjectId idDocumento;
-    private List<ComentariosModel> respuestas;
+    private List<Respuestas> respuestas;
 
     @JsonProperty("_id")
     public String getIdAstring() {
@@ -42,4 +42,5 @@ public class ComentariosModel {
     public String getIdDocumentoAstring() {
         return idDocumento != null ? idDocumento.toHexString() : null;
     }
+
 }

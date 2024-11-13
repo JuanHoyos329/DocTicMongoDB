@@ -38,6 +38,11 @@ public class UsuariosController {
         }
     }
 
+    @GetMapping("/listar/usuarios")
+    public ResponseEntity<?> listarUsuarios(){
+        return new ResponseEntity<>(usuariosService.listarUsuarios(), HttpStatus.OK);
+    }
+
     @PutMapping("/actualizar/{_id}")
     public ResponseEntity<String>actualizarUsuario(@PathVariable ObjectId _id, @RequestBody UsuariosModel usuario){
         try {
