@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mongodb.client.result.UpdateResult;
 import com.prueba.backend.Model.ComentariosModel;
-import com.prueba.backend.Model.DocumentosModel;
 import com.prueba.backend.Model.Respuestas;
 import com.prueba.backend.Repository.IComentariosRepository;
 import com.prueba.backend.Repository.IDocumentosRepository;
@@ -36,19 +35,13 @@ public class ComentarioServicelmp implements IComentarioService {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-
-    public boolean haDescargadoDocumento(String idUsuario, String idDocumento) {
-        Query query = new Query(
-            Criteria.where("_id").is(new ObjectId(idDocumento))
-                    .and("acciones.descargas.idUsuario").is(idUsuario)
-        );
-        return mongoTemplate.exists(query, DocumentosModel.class);
-    }
     
     @Override
     public String guardarComentario(ComentariosModel comentario) {
         ObjectId idDocumento = comentario.getIdDocumento();
         ObjectId idUsuario = comentario.getIdUsuario();
+
+        boolean haDescargado = documentosRepository.existsByUsuarioDescarga(idUsuario, idDocumento);
 
         if (!usuariosRepository.existsById(idUsuario)) {
             return "El usuario no existe.";
@@ -57,17 +50,21 @@ public class ComentarioServicelmp implements IComentarioService {
         if (!documentosRepository.existsById(idDocumento)) {
             return "El documento no existe.";
         }
-
-        boolean haDescargado = documentosRepository.existsByidUsuarioAndIdDocumento(idUsuario, idDocumento);
+        
         if (!haDescargado) {
             return "El usuario no ha descargado el documento.";
+        }
+
+        boolean haVisto = documentosRepository.existsByUsuarioVisualizacion(idUsuario, idDocumento);
+        if (!haVisto) {
+            return "El usuario no ha visualizado el documento.";
         }
 
         comentario.setFecha(new Date());
         comentariosRepository.save(comentario);
         return "El comentario se ha guardado con éxito.";
-            
     }
+
 
 
     @Override
